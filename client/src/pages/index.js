@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Container from '@mui/material/Container';
 import Header from '../components/Header';
+import Careousal from '../components/Careousal';
 
 const Index = () => {
   return (
     <>
       <Header />
-      <Container maxWidth='sm'></Container>
+      <Careousal />
     </>
   );
 };
