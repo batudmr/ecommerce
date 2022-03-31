@@ -1,17 +1,41 @@
 import Image from 'next/image';
-// @ts-ignore
-import banner1 from '../../public/banner/banner1.jpeg';
-// @ts-ignore
-import banner2 from '../../public/banner/banner2.jpeg';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import Box from '@mui/material/Box';
+// @ts-ignore
+import Banner1 from '../../public/banner/banner1.jpeg';
+// @ts-ignore
+import Banner2 from '../../public/banner/banner2.jpeg';
+// @ts-ignore
+import paymentBanner from '../../public/banner/payment-banner.jpg';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+const banners = [
+  { name: 'Banner1', imgSrc: Banner1, imageAlt: 'banner1' },
+  { name: 'Banner2', imgSrc: Banner2, imageAlt: 'banner2' },
+];
 
 const Careousal = () => {
   return (
-    <Carousel dynamicHeight infiniteLoop swipeable showStatus={false}>
-      <Image src={banner2} layout='responsive' />
-      <Image src={banner1} layout='responsive' />
-    </Carousel>
+    <Box>
+      <Carousel
+        dynamicHeight
+        infiniteLoop
+        swipeable
+        showStatus={false}
+        showThumbs={false}
+      >
+        {banners.map((banner) => (
+          <Image
+            key={banner.name}
+            src={banner.imgSrc}
+            alt={banner.imageAlt}
+            loading='eager'
+            layout='responsive'
+          />
+        ))}
+      </Carousel>
+      <Image src={paymentBanner} layout='responsive' />
+    </Box>
   );
 };
 

@@ -1,22 +1,37 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 
 // Create a theme instance.
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ff8d1a',
+const theme = responsiveFontSizes(
+  createTheme({
+    palette: {
+      primary: {
+        main: '#ff8d1a',
+      },
+      secondary: {
+        main: '#19857b',
+      },
+      error: {
+        main: red.A400,
+      },
+      text: {
+        primary: '#000',
+      },
     },
-    secondary: {
-      main: '#19857b',
+    typography: {
+      fontSize: 16,
+      h1: { fontSize: 56, fontWeight: 900 },
+      h2: { fontSize: 32 },
+      h3: { fontSize: 26 },
     },
-    error: {
-      main: red.A400,
+    components: {
+      MuiButtonBase: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
     },
-    text: {
-      primary: '#000',
-    },
-  },
-});
+  })
+);
 
 export default theme;
