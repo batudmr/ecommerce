@@ -10,6 +10,7 @@
     "dev": "ts-node-dev index.ts"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.23",
     "prisma": "^3.11.1",

@@ -1,4 +1,5 @@
 import express, { Request, Response, Router } from 'express';
+import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import { validateUser } from '../../validation/user';
 import prisma from '../../../prisma/prismaClient';
@@ -29,6 +30,12 @@ router.post('/', validateUser, async (req: Request, res: Response) => {
     console.log(e);
     return res.status(400).send('Hesap oluştururken hata oluştu');
   }
+
+  const userJwt = jwt.sign({ email: email }, process.env.JWT_KEY!);
+
+  req.session = {
+    jwt: userJwt,
+  };
 
   res.status(201).send('Başarılı');
 });
