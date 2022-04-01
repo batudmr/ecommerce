@@ -1,7 +1,10 @@
 {
   "name": "ecommerce-backend",
   "dependencies": {
-    "express": "^4.17.3"
+    "@prisma/client": "^3.11.1",
+    "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
+    "express-validator": "^6.14.0"
   },
   "scripts": {
     "dev": "ts-node-dev index.ts"
