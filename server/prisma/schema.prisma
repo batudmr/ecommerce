@@ -17,15 +17,32 @@ model User {
   phoneNum String
   firstName String
   lastName String
+
+  @@map("users")
 }
 
 model Product {
-  id Int @id
+  id Int @id @default(autoincrement())
   name String
   slug String
-  description String
-  category String
-  is_active Boolean
-  created_at DateTime 
+  description String?
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id])
+  is_active Boolean @default(false)
+  created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  parentId Int?
+  is_active Boolean
+  child Category? @relation("NestedCategories")
+  parent Category? @relation("NestedCategories", fields: [parentId], references: [id])
+  product Product[]
+
+  @@map("categories")
 }
