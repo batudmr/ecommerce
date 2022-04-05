@@ -3,8 +3,10 @@ import Head from 'next/head';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
+import '@fontsource/poppins';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
+import Header from '../components/Header';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -18,6 +20,7 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Header />
         <Component {...pageProps} />
       </ThemeProvider>
     </CacheProvider>

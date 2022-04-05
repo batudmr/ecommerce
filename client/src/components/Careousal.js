@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { Carousel } from 'react-responsive-carousel';
-import Box from '@mui/material/Box';
 // @ts-ignore
 import Banner1 from '../../public/banner/banner1.jpeg';
 // @ts-ignore
@@ -16,7 +15,7 @@ const banners = [
 
 const Careousal = () => {
   return (
-    <Box>
+    <>
       <Carousel
         dynamicHeight
         infiniteLoop
@@ -35,7 +34,7 @@ const Careousal = () => {
         ))}
       </Carousel>
       <Image src={paymentBanner} layout='responsive' />
-    </Box>
+    </>
   );
 };
 

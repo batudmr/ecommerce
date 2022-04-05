@@ -1,84 +1,50 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
+import Logo from './Logo';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Logo from '../components/Logo';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import LoginIcon from '@mui/icons-material/Login';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import CategoryTabs from './CategoryTabs';
+import DesktopHeader from './Header/DesktopHeader';
+import MobileHeader from './Header/MobileHeader';
 
 const categories = [
-  { name: 'Yeni Ürünler' },
-  { name: 'Tesettür Abiye' },
-  { name: 'Tesettür Takımlar' },
-  { name: 'Tesettür Elbise' },
-  { name: 'Tesettür Tulum' },
-  { name: 'Tesettür Tunikler' },
-  { name: 'Büyük Beden' },
+  { id: 1, name: 'Yeni Ürünler' },
+  { id: 2, name: 'Tesettür Abiye' },
+  { id: 3, name: 'Tesettür Takımlar' },
+  { id: 4, name: 'Tesettür Elbise' },
+  { id: 5, name: 'Tesettür Tulum' },
+  { id: 6, name: 'Tesettür Tunikler' },
+  { id: 7, name: 'Büyük Beden' },
 ];
 
 const Header = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <>
       <AppBar
         component='header'
         position='static'
-        sx={{ backgroundColor: '#eff1f2', boxShadow: 'none', color: '#000' }}
+        sx={{ backgroundColor: '#eff1f2', boxShadow: 'none', p: 2 }}
       >
         <Container maxWidth='xl'>
-          <Toolbar
-            component='nav'
-            sx={{
-              p: 2,
-              display: 'flex',
-              direction: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
+          <Toolbar disableGutters component='nav'>
             <Logo />
-            <Stack direction='row' spacing={2} sx={{ ml: 'auto' }}>
-              <Button
-                variant='outlined'
-                startIcon={<LoginIcon />}
-                sx={{ py: 2 }}
-              >
-                <Typography variant='body1'>Giriş Yapın</Typography>
-              </Button>
-              <Button variant='contained' startIcon={<PersonAddAltIcon />}>
-                <Typography variant='body1'>Kayıt Ol</Typography>
-              </Button>
-            </Stack>
+            {matches ? <DesktopHeader /> : <MobileHeader />}
+            <IconButton>
+              <Badge color='primary' badgeContent={0} showZero>
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          my: 2,
-        }}
-      >
-        <Container maxWidth='xl'>
-          <ButtonGroup
-            fullWidth
-            disableFocusRipple
-            size='large'
-            variant='text'
-            aria-label='text button group'
-          >
-            {categories.map((category) => (
-              <Button sx={{ py: 2 }} key={category.name}>
-                {category.name}
-              </Button>
-            ))}
-          </ButtonGroup>
-        </Container>
-      </Box>
+      <CategoryTabs categories={categories} />
     </>
   );
 };

@@ -19,6 +19,7 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
+      fontFamily: 'Poppins',
       fontSize: 16,
       h1: { fontSize: 56, fontWeight: 900 },
       h2: { fontSize: 32 },

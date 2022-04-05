@@ -7,7 +7,6 @@ import Footer from '../components/Footer';
 const Index = () => {
   return (
     <>
-      <Header />
       <Careousal />
       <BannerGrid />
       <Footer />
