@@ -48,7 +48,7 @@ model Category {
 
 model Brand {
   id Int @id @default(autoincrement())
-  name String @unique 
+  name String @unique
   productInventory ProductInventory[]
 }
 
@@ -86,7 +86,7 @@ model ProductInventory {
   productTypeId Int
   productType ProductType @relation(fields: [productTypeId], references: [id], onDelete: Restrict)
   productId Int
-  product Product @relation(fields: [productId], references: [id],onDelete: Restrict)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
   brandId Int
   brand Brand @relation(fields: [brandId], references: [id], onDelete: SetNull)
   attrValues ProductAttributeValue[]
