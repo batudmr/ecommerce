@@ -5,7 +5,7 @@ import { Password } from '../../services/password';
 
 const router: Router = express.Router();
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/api/auth/signin', async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await prisma.user.findUnique({

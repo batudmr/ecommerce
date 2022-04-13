@@ -2,7 +2,7 @@ import express, { Request, Response, Router } from 'express';
 
 const router: Router = express.Router();
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/api/auth/signout', async (req: Request, res: Response) => {
   req.session = null;
   res.status(200).send({});
 });

@@ -23,9 +23,9 @@ model User {
 
 model Product {
   id Int @id @default(autoincrement())
-  name String @db.Char(255)
-  slug String @db.Char(255) @unique
-  description String? @db.Char(350)
+  name String
+  slug String @unique
+  description String?
   categoryId Int?
   category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   productInventory ProductInventory[]
@@ -38,12 +38,9 @@ model Product {
 
 model Category {
   id Int @id @default(autoincrement())
-  name String @db.Char(200)
-  slug String @db.Char(254) @unique
+  name String
+  slug String @unique
   is_active Boolean @default(false)
-  parentId Int?
-  child Category? @relation("NestedCategories")
-  parent Category? @relation("NestedCategories", fields: [parentId], references: [id], onDelete: Restrict)
   product Product[]
 
   @@map("categories")
@@ -51,14 +48,14 @@ model Category {
 
 model Brand {
   id Int @id @default(autoincrement())
-  name String @unique @db.Char(255)
+  name String @unique 
   productInventory ProductInventory[]
 }
 
 
 model ProductAttribute {
   id Int @id @default(autoincrement())
-  name String @db.Char(255) @unique
+  name String @unique
   description String
   productType ProductType[]
   productAttrValue ProductAttributeValue[]
@@ -67,7 +64,7 @@ model ProductAttribute {
 
 model ProductType {
   id Int @id @default(autoincrement())
-  name String @unique @db.Char(255)
+  name String @unique
   productAttr ProductAttribute[]
   productInv ProductInventory[]
 }
@@ -75,22 +72,16 @@ model ProductType {
 model ProductAttributeValue {
   id Int @id @default(autoincrement())
   productAttrId Int
-  productAttribute ProductAttribute @relation(fields: [productAttrId], references: [id])
-  attributeValue String @db.Char(255)
-  productAttrValues ProductAttributeValues[]
+  productAttribute ProductAttribute @relation(fields: [productAttrId], references: [id], onDelete: Cascade)
+  attributeValue String
+  productInv ProductInventory[]
 }
 
-model ProductAttributeValues {
-  id Int @id @default(autoincrement())
-  productAttrValueId Int
-  productAttrValue ProductAttributeValue @relation(fields: [productAttrValueId], references: [id])
-  productInvId Int
-  productInv ProductInventory @relation(fields: [productInvId], references: [id])
-}
+
 
 model ProductInventory {
   id Int @id @default(autoincrement())
-  sku String @unique @db.Char(20)
+  sku String @unique 
   stock Int 
   productTypeId Int
   productType ProductType @relation(fields: [productTypeId], references: [id], onDelete: Restrict)
@@ -98,8 +89,8 @@ model ProductInventory {
   product Product @relation(fields: [productId], references: [id],onDelete: Restrict)
   brandId Int
   brand Brand @relation(fields: [brandId], references: [id], onDelete: SetNull)
-  attrValues ProductAttributeValues[]
-  media ProductMedia[]
+  attrValues ProductAttributeValue[]
+  media ProductMedia?
   is_active Boolean @default(false)
   is_default Boolean @default(false)
   retail_price Decimal @db.Decimal(6,2)
@@ -114,9 +105,26 @@ model ProductMedia {
   sku String
   productInv ProductInventory @relation(fields: [sku], references: [sku])
   imageUrl String 
-  altText String @db.Char(255)
+  altText String
   isFeature Boolean @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
+// model ProductAttributeValues {
+//   id Int @id @default(autoincrement())
+//   productAttrValueId Int
+//   productAttrValue ProductAttributeValue @relation(fields: [productAttrValueId], references: [id])
+//   productInvId Int
+//   productInv ProductInventory @relation(fields: [productInvId], references: [id])
+
+//   @@unique([productAttrValueId, productInvId])
+// }
+
+// model ProductTypeAttributes {
+//   id Int @id @default(autoincrement())
+//   productAttrId Int
+//   productAttr ProductAttribute @relation(fields: [productAttrId], references: [id])
+//   productTypeId Int
+//   productType ProductType @relation(fields: [productTypeId], references: [id])
+// }
