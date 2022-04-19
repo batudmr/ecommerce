@@ -1,16 +1,13 @@
 import express, { Request, Response, Router } from 'express';
 import prisma from '../../prisma/prismaClient';
 import inputValidator from '../../middlewares/input-validator';
-import { body } from 'express-validator';
+import { categoryValidation } from './validation/categoryValidation';
 
 const router: Router = express.Router();
 
 router.post(
   '/api/categories',
-  body(['name', 'slug']).exists().withMessage('Required fields are missing'),
-  body('name').isLength({ min: 3, max: 255 }),
-  body('slug').isSlug(),
-  body('description').isLength({ max: 2500 }),
+  categoryValidation,
   inputValidator,
   async (req: Request, res: Response) => {
     const { name, slug, description } = req.body;
