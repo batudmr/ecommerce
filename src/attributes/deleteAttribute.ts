@@ -3,7 +3,7 @@ import prisma from '../../prisma/prismaClient';
 
 const router: Router = express.Router();
 
-router.delete('/api/product-attrs/:id', async (req: Request, res: Response) => {
+router.delete('/api/attributes/:id', async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
 
   if (isNaN(id) || typeof id !== 'number') {

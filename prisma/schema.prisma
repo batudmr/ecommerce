@@ -81,7 +81,7 @@ model ProductAttribute {
 model ProductAttributeValue {
   id Int @id @default(autoincrement())
   attrNameId Int
-  attr ProductAttribute @relation(fields: [attrNameId], references: [id], onDelete: Cascade)
+  attr ProductAttribute @relation(fields: [attrNameId], references: [id], onDelete: Restrict)
   attrValue String
   variant ProductVariant[]
 }

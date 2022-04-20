@@ -1,26 +1,28 @@
 import express, { Request, Response, Router } from 'express';
 import prisma from '../../prisma/prismaClient';
 import inputValidator from '../../middlewares/input-validator';
-import { attributeValidation } from './validation/attributeValidation';
+import { updatedAttributeValidation } from './validation/attributeValidation';
 
 const router: Router = express.Router();
 
-router.post(
-  '/api/attributes',
-  attributeValidation,
+router.put(
+  '/api/attributes/:id',
+  updatedAttributeValidation,
   inputValidator,
   async (req: Request, res: Response) => {
     const { attrName, attrDesc, attrValues } = req.body;
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(404).send('Route not found');
+    }
+
     try {
-      await prisma.productAttribute.create({
+      await prisma.productAttribute.update({
+        where: { id },
         data: {
           attrName,
           attrDesc,
-          attrValue: {
-            createMany: {
-              data: attrValues,
-            },
-          },
         },
       });
     } catch (e) {
@@ -30,4 +32,4 @@ router.post(
   }
 );
 
-export { router as newAttribute };
+export { router as updatedAttributes };
