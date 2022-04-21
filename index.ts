@@ -1,17 +1,20 @@
 import express from 'express';
 import 'express-async-errors';
-
-import categoryRoutes from './src/category';
-import brandRouter from './src/brand';
-import attributeRoutes from './src/attributes';
+import attributeRouter from './src/components/attribute/attributeAPI';
+import brandRouter from './src/components/brand/brandAPI';
+import categoryRouter from './src/components/category/categoryAPI';
 
 const app = express();
 
 app.use(express.json());
 
-app.use(categoryRoutes);
 app.use(brandRouter);
-app.use(attributeRoutes);
+app.use(categoryRouter);
+app.use(attributeRouter);
+
+app.all('*', async () => {
+  throw Error();
+});
 
 app.listen(3001, () => {
   console.log('Listening on 3001!');

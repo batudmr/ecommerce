@@ -12,7 +12,7 @@
     "url": "git+https://github.com/batudmr/ecommerce.git"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node src/db/seed.ts"
   },
   "keywords": [],
   "author": "",

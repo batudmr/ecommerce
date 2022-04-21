@@ -21,8 +21,8 @@ model Category {
 
 model Brand {
   id Int @id @default(autoincrement())
-  name String
-  abbrev String
+  name String @unique
+  abbrev String @unique
   product Product[]
 }
 
