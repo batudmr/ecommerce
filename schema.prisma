@@ -89,6 +89,6 @@ model ProductAttributeValue {
 model ProductType {
   id Int @id @default(autoincrement())
   name String
-  product ProductAttribute[]
+  productAttrs ProductAttribute[]
   productVariant ProductVariant[]
 }

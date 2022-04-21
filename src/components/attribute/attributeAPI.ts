@@ -2,7 +2,10 @@ import express, { Router } from 'express';
 import inputValidator from '../../middlewares/input-validator';
 import categoryController from '../category/categoryController';
 import attributeController from './attributeController';
-import { attributeValidation } from './attributeValidation';
+import {
+  attributeValidation,
+  updatedAttributeValidation,
+} from './attributeValidation';
 
 const attributeRouter: Router = express.Router();
 
@@ -14,7 +17,7 @@ attributeRouter
 attributeRouter
   .route('/api/product-attrs/:id')
   .put(
-    attributeValidation,
+    updatedAttributeValidation,
     inputValidator,
     attributeController.updateAttributeById
   )
