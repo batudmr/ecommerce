@@ -4,6 +4,7 @@ import attributeRouter from './src/components/attribute/attributeAPI';
 import brandRouter from './src/components/brand/brandAPI';
 import categoryRouter from './src/components/category/categoryAPI';
 import productTypeRouter from './src/components/product-types/productTypeAPI';
+import productRouter from './src/components/product/productAPI';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(brandRouter);
 app.use(categoryRouter);
 app.use(attributeRouter);
 app.use(productTypeRouter);
+app.use(productRouter);
 
 app.all('*', async (req, res) => {
   res.status(404).send('Not Found');
