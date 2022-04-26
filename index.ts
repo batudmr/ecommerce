@@ -16,6 +16,8 @@ app.use(attributeRouter);
 app.use(productTypeRouter);
 app.use(productRouter);
 
+app.use('/assets', express.static('public'));
+
 app.all('*', async (req, res) => {
   res.status(404).send('Not Found');
 });

@@ -10,6 +10,43 @@ class CategoryController {
     res.send(categories);
   }
 
+  public async getCategoryWithProductsBySlug(req: Request, res: Response) {
+    const slug = req.params.slug;
+    const categories = await prisma.category
+      .findUnique({
+        where: {
+          slug,
+        },
+        select: {
+          name: true,
+          slug: true,
+          description: true,
+          product: {
+            select: {
+              name: true,
+              slug: true,
+              description: true,
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+              brand: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      })
+      .catch((e) => {
+        throw e;
+      });
+
+    res.send(categories);
+  }
+
   public async createCategory(req: Request, res: Response) {
     const { name, slug, description, is_active } = req.body;
     await prisma.category

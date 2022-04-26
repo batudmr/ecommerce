@@ -11,6 +11,10 @@ categoryRouter
   .post(categoryValidation, inputValidator, categoryController.createCategory);
 
 categoryRouter
+  .route('/api/categories/:slug')
+  .get(categoryController.getCategoryWithProductsBySlug);
+
+categoryRouter
   .route('/api/categories/:id')
   .put(
     categoryValidation,
