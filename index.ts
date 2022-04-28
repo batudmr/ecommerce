@@ -5,10 +5,12 @@ import brandRouter from './src/components/brand/brandAPI';
 import categoryRouter from './src/components/category/categoryAPI';
 import productTypeRouter from './src/components/product-types/productTypeAPI';
 import productRouter from './src/components/product/productAPI';
+import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use(brandRouter);
 app.use(categoryRouter);

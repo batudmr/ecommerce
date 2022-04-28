@@ -22,10 +22,28 @@ class CategoryController {
           slug: true,
           description: true,
           product: {
+            where: {
+              is_active: true,
+            },
             select: {
               name: true,
               slug: true,
               description: true,
+              productVariant: {
+                where: {
+                  is_default: true,
+                },
+                select: {
+                  image: {
+                    select: {
+                      imageUrl: true,
+                      altText: true,
+                    },
+                  },
+                  sale_price: true,
+                  retail_price: true,
+                },
+              },
               category: {
                 select: {
                   name: true,
